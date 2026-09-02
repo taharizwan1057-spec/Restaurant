@@ -137,7 +137,7 @@ export function Hero() {
           </div>
 
           {/* Visual: floating food cards */}
-          <div className="relative mx-auto h-[380px] w-full max-w-sm md:h-[460px] md:max-w-md">
+          <div className="relative mx-auto h-[340px] w-full max-w-sm md:h-[420px] md:max-w-md">
             <motion.div
               style={{ y: y1, rotate }}
               whileHover={{ scale: 1.08, y: -8, rotate: 0 }}
@@ -197,7 +197,7 @@ export function Hero() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute bottom-0 right-4 z-10 h-36 w-36 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:right-8 md:h-48 md:w-48",
+                "group absolute bottom-2 right-2 z-10 h-32 w-32 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:bottom-4 md:right-8 md:h-44 md:w-44",
               )}
             >
               {categoryImage("premium-cakes") && (
@@ -219,7 +219,7 @@ export function Hero() {
 
             {/* Background blob */}
             <div
-              className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-orange/30 to-brand-orange-deep/30 blur-3xl md:h-72 md:w-72"
+              className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-orange/30 to-brand-orange-deep/30 blur-3xl md:h-64 md:w-64"
               aria-hidden
             />
           </div>

@@ -6,9 +6,22 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useLang } from "@/lib/lang-context";
-import { categories, getItemsByCategory, getDealsByCategory } from "@/lib/menu-data";
+import {
+  categories,
+  getItemsByCategory,
+  getDealsByCategory,
+  menuItems,
+} from "@/lib/menu-data";
 import { MenuItemCard } from "@/components/cards/MenuItemCard";
 import { DealCard } from "@/components/cards/DealCard";
+
+/** Categories that render their `deals[]` (not `items[]`). */
+const DEAL_CATEGORIES: ReadonlySet<string> = new Set([
+  "birthday-deals",
+  "family-deals",
+  "one-man-show",
+  "couple-treats",
+]);
 
 export function MenuShowcase() {
   const { t, lang } = useLang();
@@ -16,15 +29,25 @@ export function MenuShowcase() {
   const initialCat = search.get("cat") ?? null;
 
   // Pre-build all category payloads so we can render every section in one pass.
-  const sections = useMemo(
-    () =>
-      categories.map((c) => ({
+  // Deal categories render their `deals[]`; "new-arrivals" has no deals yet, so
+  // we show the most recently added popular items as a stand-in.
+  const sections = useMemo(() => {
+    const newArrivals = menuItems.filter((i) => i.popular).slice(0, 8);
+    return categories.map((c) => {
+      const isDealCat = DEAL_CATEGORIES.has(c.id);
+      return {
         category: c,
-        items: c.id === "birthday-deals" ? [] : getItemsByCategory(c.id as any),
-        deals: c.id === "birthday-deals" ? getDealsByCategory("birthday-deals") : [],
-      })),
-    [],
-  );
+        isDealCat,
+        items:
+          c.id === "new-arrivals"
+            ? newArrivals
+            : isDealCat
+              ? []
+              : getItemsByCategory(c.id as any),
+        deals: isDealCat ? getDealsByCategory(c.id as any) : [],
+      };
+    });
+  }, []);
 
   // If the URL has ?cat=… (e.g. coming from a category tile), scroll to that
   // section after mount instead of hiding the others.
@@ -75,7 +98,7 @@ export function MenuShowcase() {
 
         {/* Every category, stacked. No tabs, no slider — everything visible. */}
         <div className="space-y-16 md:space-y-20">
-          {sections.map(({ category, items, deals }) => (
+          {sections.map(({ category, isDealCat, items, deals }) => (
             <CategorySection
               key={category.id}
               id={`cat-${category.id}`}
@@ -86,7 +109,7 @@ export function MenuShowcase() {
               emoji={category.emoji}
               color={category.color}
               image={category.image}
-              isBirthday={category.id === "birthday-deals"}
+              isDealCat={isDealCat}
               items={items}
               deals={deals}
               registerRef={
@@ -109,7 +132,7 @@ function CategorySection({
   emoji,
   color,
   image,
-  isBirthday,
+  isDealCat,
   items,
   deals,
   registerRef,
@@ -120,11 +143,12 @@ function CategorySection({
   emoji?: string;
   color?: string;
   image?: string;
-  isBirthday: boolean;
+  isDealCat: boolean;
   items: ReturnType<typeof getItemsByCategory>;
   deals: ReturnType<typeof getDealsByCategory>;
   registerRef?: React.MutableRefObject<HTMLDivElement | null>;
 }) {
+  const { lang } = useLang();
   return (
     <div
       id={id}
@@ -174,15 +198,15 @@ function CategorySection({
             )}
           </div>
         </div>
-        {isBirthday && (
+        {deals.length > 0 && (
           <span className="rounded-full bg-pink-100 px-3 py-1 text-xs font-bold uppercase tracking-widest text-pink-600">
-            Featured
+            {deals.length} {lang === "ur" ? "ڈیلز" : "Deals"}
           </span>
         )}
       </motion.div>
 
-      {isBirthday ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+      {deals.length > 0 ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {deals.map((d, i) => (
             <DealCard key={d.id} deal={d} index={i} />
           ))}

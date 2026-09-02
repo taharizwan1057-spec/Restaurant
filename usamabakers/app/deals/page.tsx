@@ -3,15 +3,22 @@
 import { motion } from "framer-motion";
 import { useLang } from "@/lib/lang-context";
 import { DealCard } from "@/components/cards/DealCard";
-import { getDealsByCategory } from "@/lib/menu-data";
+import { categories, getDealsByCategory } from "@/lib/menu-data";
 import { ScrollReveal } from "@/components/ui/gradient-text";
 
-const dealSections = [
-  { id: "birthday-deals" as const, emoji: "🎂" },
-  { id: "family-deals" as const, emoji: "👨‍👩‍👧‍👦" },
-  { id: "one-man-show" as const, emoji: "🍔" },
-  { id: "couple-treats" as const, emoji: "💕" },
-];
+/** Categories that have deals (everything except `new-arrivals`, which has no deals yet). */
+const dealSections = categories
+  .filter((c) =>
+    (
+      [
+        "birthday-deals",
+        "family-deals",
+        "one-man-show",
+        "couple-treats",
+      ] as const
+    ).includes(c.id as any),
+  )
+  .map((c) => ({ id: c.id, title: c.title, titleUr: c.titleUr, emoji: c.emoji }));
 
 export default function DealsPage() {
   const { t, lang } = useLang();
@@ -63,17 +70,37 @@ export default function DealsPage() {
         </div>
       </section>
 
+      {/* Anchor jump bar — lets people jump between deal categories. */}
+      <nav
+        aria-label="Deal categories"
+        className="sticky top-20 z-20 border-b border-brand-cream bg-white/90 backdrop-blur"
+      >
+        <div className="container">
+          <div className="scrollbar-none -mx-1 flex flex-nowrap items-center gap-2 overflow-x-auto py-4">
+            {dealSections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-brand-cream bg-white px-4 py-1.5 text-xs font-semibold text-brand-black/70 shadow-sm transition-colors hover:border-brand-orange/40 hover:bg-brand-orange/10 hover:text-brand-orange-deep"
+              >
+                {section.emoji && <span aria-hidden>{section.emoji}</span>}
+                {lang === "ur" ? section.titleUr : section.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       {/* Each deal group */}
       {dealSections.map((section) => {
         const list = getDealsByCategory(section.id);
         if (list.length === 0) return null;
-        const cat = list[0];
-        const title = lang === "ur" && cat.titleUr ? cat.titleUr : cat.title;
+        const sectionTitle = lang === "ur" ? section.titleUr : section.title;
         return (
           <section
             key={section.id}
             id={section.id}
-            className="bg-white py-16 md:py-20"
+            className="scroll-mt-32 bg-white py-16 md:py-20"
           >
             <div className="container">
               <ScrollReveal>
@@ -81,7 +108,7 @@ export default function DealsPage() {
                   <div>
                     <div className="mb-2 text-3xl">{section.emoji}</div>
                     <h2 className="font-display text-3xl font-extrabold text-brand-black md:text-4xl">
-                      {title}
+                      {sectionTitle}
                     </h2>
                     <p className="mt-1 text-brand-black/60">
                       {list.length} {lang === "ur" ? "ڈیلز دستیاب" : "deals available"}

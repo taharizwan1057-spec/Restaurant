@@ -71,6 +71,17 @@
   background: #D9550F;
 }
 
+/* Hide scrollbar but keep scrollability — used on horizontal pill bars. */
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Wood grain background pattern */
 .bg-wood-pattern {
   background-color: #F26B1F;
