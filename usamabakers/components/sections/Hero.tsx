@@ -136,91 +136,63 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Visual: floating food cards */}
-          <div className="relative mx-auto h-[340px] w-full max-w-sm md:h-[420px] md:max-w-md">
-            <motion.div
-              style={{ y: y1, rotate }}
-              whileHover={{ scale: 1.08, y: -8, rotate: 0 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={cn(
-                "group absolute left-1/2 top-0 z-30 h-32 w-32 -ml-16 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-pink-300 to-rose-400 shadow-2xl shadow-pink-500/30 md:-ml-[88px] md:h-44 md:w-44",
-              )}
-            >
-              {categoryImage("prime-pizzas") && (
-                <Image
-                  src={categoryImage("prime-pizzas")!}
-                  alt="Pizzas"
-                  fill
-                  sizes="(max-width: 768px) 128px, 176px"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                />
-              )}
-              {/* Bottom gradient for legibility + always-visible label */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 z-10 px-3 pb-3 pt-6 text-center">
-                <span className="inline-block whitespace-nowrap rounded-full bg-brand-orange px-3 py-1 text-xs font-bold text-white shadow-lg shadow-brand-orange/40 transition-colors group-hover:bg-white group-hover:text-brand-black">
-                  Pizzas
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              style={{ y: y2 }}
-              whileHover={{ scale: 1.08, y: -8 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={cn(
-                "group absolute bottom-0 left-0 z-20 h-28 w-28 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-amber-300 to-orange-400 shadow-2xl shadow-orange-500/30 md:h-40 md:w-40",
-              )}
-            >
-              {categoryImage("burgers") && (
-                <Image
-                  src={categoryImage("burgers")!}
-                  alt="Burgers"
-                  fill
-                  sizes="(max-width: 768px) 112px, 160px"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                />
-              )}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 z-10 px-3 pb-3 pt-6 text-center">
-                <span className="inline-block whitespace-nowrap rounded-full bg-brand-orange px-3 py-1 text-xs font-bold text-white shadow-lg shadow-brand-orange/40 transition-colors group-hover:bg-white group-hover:text-brand-black">
-                  Burgers
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              style={{ y: y3 }}
-              whileHover={{ scale: 1.08, y: -8 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className={cn(
-                "group absolute bottom-0 right-0 z-10 h-32 w-32 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:h-44 md:w-44",
-              )}
-            >
-              {categoryImage("premium-cakes") && (
-                <Image
-                  src={categoryImage("premium-cakes")!}
-                  alt="Cakes"
-                  fill
-                  sizes="(max-width: 768px) 144px, 192px"
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                />
-              )}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 z-10 px-3 pb-3 pt-6 text-center">
-                <span className="inline-block whitespace-nowrap rounded-full bg-brand-orange px-3 py-1 text-xs font-bold text-white shadow-lg shadow-brand-orange/40 transition-colors group-hover:bg-white group-hover:text-brand-black">
-                  Cakes
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Background blob */}
+          {/* Visual: balanced photo cluster.
+             All three cards are the same size (h-36/h-52).
+             Composition: a deliberate triangular cluster, not a literal triangle.
+             Pizzas (apex) is the focal point and slightly forward in z.
+             Burgers (lower-left) and Cakes (lower-right) sit on the same baseline,
+             equidistant from the centre, with a measured gap to the apex card. */}
+          <div className="relative mx-auto aspect-square w-full max-w-md">
+            {/* Soft brand glow behind the cluster — adds depth without dominating. */}
             <div
-              className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-orange/30 to-brand-orange-deep/30 blur-3xl md:h-64 md:w-64"
+              className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-orange/25 to-brand-orange-deep/25 blur-3xl md:h-80 md:w-80"
               aria-hidden
+            />
+
+            <PhotoCard
+              imageId="burgers"
+              alt="Burgers"
+              label="Burgers"
+              href="/menu?cat=burgers"
+              className="absolute bottom-[8%] left-[2%] z-20"
+              y={y2}
+              accent="from-amber-400 to-orange-500"
+            />
+
+            <PhotoCard
+              imageId="premium-cakes"
+              alt="Cakes"
+              label="Cakes"
+              href="/menu?cat=premium-cakes"
+              className="absolute bottom-[8%] right-[2%] z-10"
+              y={y3}
+              accent="from-pink-400 to-rose-500"
+            />
+
+            <PhotoCard
+              imageId="prime-pizzas"
+              alt="Pizzas"
+              label="Pizzas"
+              href="/menu?cat=prime-pizzas"
+              className="absolute left-1/2 top-[6%] z-30 -ml-[72px] md:-ml-[104px]"
+              y={y1}
+              rotate={rotate}
+              focal
+              accent="from-red-500 to-orange-500"
+            />
+
+            {/* Decorative sparkle dots — small, off-axis, draw the eye through the cluster. */}
+            <span
+              aria-hidden
+              className="absolute right-[14%] top-[14%] h-2 w-2 rounded-full bg-brand-orange/70 shadow-[0_0_12px_rgba(242,107,31,0.6)] md:h-2.5 md:w-2.5"
+            />
+            <span
+              aria-hidden
+              className="absolute left-[12%] top-[44%] h-1.5 w-1.5 rounded-full bg-brand-orange-deep/50 md:h-2 md:w-2"
+            />
+            <span
+              aria-hidden
+              className="absolute bottom-[18%] left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-brand-orange/40 md:h-2 md:w-2"
             />
           </div>
         </div>
@@ -242,4 +214,95 @@ export function Hero() {
 /** Look up a category's hero image by id (Pizzas / Burgers / Cakes). */
 function categoryImage(id: string): string | undefined {
   return categories.find((c) => c.id === id)?.image;
+}
+
+/**
+ * A floating, linkable photo card used in the hero cluster.
+ * All three cards are rendered at the same dimensions (`h-36 md:h-52`, square)
+ * so the cluster reads as a coherent composition rather than three competing shapes.
+ *
+ * Visual treatment:
+ * - White ring + soft amber shadow (the same shadow on every card) for a unified look
+ *   instead of a coloured gradient behind each photo.
+ * - Always-visible label pill at the bottom so the card communicates its category
+ *   even on first paint or with reduced motion.
+ * - `focal` adds a slightly larger ring and a soft brand-coloured glow, marking the
+ *   apex card as the visual anchor without changing its size.
+ */
+function PhotoCard({
+  imageId,
+  alt,
+  label,
+  href,
+  className,
+  y,
+  rotate,
+  focal = false,
+  accent,
+}: {
+  imageId: string;
+  alt: string;
+  label: string;
+  href: string;
+  className?: string;
+  y: ReturnType<typeof useTransform<number, number>>;
+  rotate?: ReturnType<typeof useTransform<number, number>>;
+  focal?: boolean;
+  accent: string;
+}) {
+  const src = categoryImage(imageId);
+  // Same on every card: 144px (mobile) / 208px (md+). 144 is the actual mobile card
+  // width and 208 is the actual md card width — sizes must match what's rendered.
+  const sizes = "(max-width: 768px) 144px, 208px";
+
+  return (
+    <motion.div
+      style={rotate ? { y, rotate } : { y }}
+      whileHover={{ scale: 1.06, y: -10 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className={cn("group", className)}
+    >
+      <Link
+        href={href}
+        aria-label={label}
+        className={cn(
+          "relative block h-36 w-36 overflow-hidden rounded-[1.75rem] ring-2 ring-white md:h-52 md:w-52",
+          "shadow-[0_18px_40px_-12px_rgba(242,107,31,0.45),0_8px_20px_-8px_rgba(0,0,0,0.25)]",
+          focal &&
+            "ring-4 shadow-[0_24px_50px_-12px_rgba(242,107,31,0.6),0_12px_24px_-10px_rgba(0,0,0,0.3)]",
+        )}
+      >
+        {src && (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            priority={focal}
+          />
+        )}
+
+        {/* Bottom gradient for legibility of the label on any photo. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 via-black/30 to-transparent"
+        />
+
+        {/* Always-visible label pill — same shape & size on every card. */}
+        <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center px-3 pb-3 pt-6">
+          <span
+            className={cn(
+              "inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-gradient-to-r px-3.5 py-1 text-xs font-bold text-white shadow-md",
+              "transition-colors group-hover:from-white group-hover:to-white group-hover:text-brand-black",
+              accent,
+            )}
+          >
+            {label}
+          </span>
+        </div>
+      </Link>
+    </motion.div>
+  );
 }
