@@ -144,7 +144,7 @@ export function Hero() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute right-0 top-0 z-30 h-32 w-32 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-pink-300 to-rose-400 shadow-2xl shadow-pink-500/30 md:h-44 md:w-44",
+                "group absolute left-1/2 top-0 z-30 h-32 w-32 -ml-16 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-pink-300 to-rose-400 shadow-2xl shadow-pink-500/30 md:-ml-[88px] md:h-44 md:w-44",
               )}
             >
               {categoryImage("prime-pizzas") && (
@@ -171,7 +171,7 @@ export function Hero() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute left-0 top-20 z-20 h-28 w-28 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-amber-300 to-orange-400 shadow-2xl shadow-orange-500/30 md:top-24 md:h-40 md:w-40",
+                "group absolute bottom-0 left-0 z-20 h-28 w-28 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-amber-300 to-orange-400 shadow-2xl shadow-orange-500/30 md:h-40 md:w-40",
               )}
             >
               {categoryImage("burgers") && (
@@ -197,7 +197,7 @@ export function Hero() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute bottom-2 right-2 z-10 h-32 w-32 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:bottom-4 md:right-8 md:h-44 md:w-44",
+                "group absolute bottom-0 right-0 z-10 h-32 w-32 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:h-44 md:w-44",
               )}
             >
               {categoryImage("premium-cakes") && (
