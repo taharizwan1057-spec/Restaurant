@@ -137,14 +137,14 @@ export function Hero() {
           </div>
 
           {/* Visual: floating food cards */}
-          <div className="relative mx-auto h-[420px] w-full max-w-md md:h-[520px]">
+          <div className="relative mx-auto h-[380px] w-full max-w-sm md:h-[460px] md:max-w-md">
             <motion.div
               style={{ y: y1, rotate }}
               whileHover={{ scale: 1.08, y: -8, rotate: 0 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute right-0 top-0 z-30 h-40 w-40 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-pink-300 to-rose-400 shadow-2xl shadow-pink-500/30 md:h-52 md:w-52",
+                "group absolute right-0 top-0 z-30 h-32 w-32 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-pink-300 to-rose-400 shadow-2xl shadow-pink-500/30 md:h-44 md:w-44",
               )}
             >
               {categoryImage("prime-pizzas") && (
@@ -152,7 +152,7 @@ export function Hero() {
                   src={categoryImage("prime-pizzas")!}
                   alt="Pizzas"
                   fill
-                  sizes="208px"
+                  sizes="(max-width: 768px) 128px, 176px"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               )}
@@ -171,7 +171,7 @@ export function Hero() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute left-0 top-32 z-20 h-36 w-36 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-amber-300 to-orange-400 shadow-2xl shadow-orange-500/30 md:h-48 md:w-48",
+                "group absolute left-0 top-20 z-20 h-28 w-28 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-amber-300 to-orange-400 shadow-2xl shadow-orange-500/30 md:top-24 md:h-40 md:w-40",
               )}
             >
               {categoryImage("burgers") && (
@@ -179,7 +179,7 @@ export function Hero() {
                   src={categoryImage("burgers")!}
                   alt="Burgers"
                   fill
-                  sizes="192px"
+                  sizes="(max-width: 768px) 112px, 160px"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               )}
@@ -197,7 +197,7 @@ export function Hero() {
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className={cn(
-                "group absolute bottom-4 right-12 z-10 h-44 w-44 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:h-56 md:w-56",
+                "group absolute bottom-0 right-4 z-10 h-36 w-36 cursor-pointer overflow-hidden rounded-3xl bg-gradient-to-br from-yellow-300 to-amber-400 shadow-2xl shadow-yellow-500/30 md:right-8 md:h-48 md:w-48",
               )}
             >
               {categoryImage("premium-cakes") && (
@@ -205,7 +205,7 @@ export function Hero() {
                   src={categoryImage("premium-cakes")!}
                   alt="Cakes"
                   fill
-                  sizes="224px"
+                  sizes="(max-width: 768px) 144px, 192px"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               )}
@@ -219,7 +219,7 @@ export function Hero() {
 
             {/* Background blob */}
             <div
-              className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-orange/30 to-brand-orange-deep/30 blur-3xl"
+              className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-brand-orange/30 to-brand-orange-deep/30 blur-3xl md:h-72 md:w-72"
               aria-hidden
             />
           </div>
