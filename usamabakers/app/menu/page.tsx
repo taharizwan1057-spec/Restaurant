@@ -8,10 +8,8 @@ export const metadata: Metadata = {
     "Browse the full Usama Bakers menu — pizzas, burgers, wraps, shakes, cakes, desserts & family deals. Order on WhatsApp 0300 1011955.",
 };
 
-// MenuShowcase reads ?cat= via useSearchParams; the page is intentionally
-// dynamic so the suspense boundary is hydrated on the client.
-export const dynamic = "force-dynamic";
-
+// MenuShowcase reads ?cat= via useSearchParams on the client; the Suspense
+// boundary below handles the searchParams hydration in static export mode.
 export default function MenuPage() {
   return (
     <div className="pt-20">
